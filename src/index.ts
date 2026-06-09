@@ -10,6 +10,14 @@ const GREETING =
 
 const app = new Elysia()
 	.get("/", () => GREETING)
+	.get("/add", ({ query }) => {
+		const a = parseFloat(query.a);
+		const b = parseFloat(query.b);
+		if (isNaN(a) || isNaN(b)) {
+			return { error: "Query params 'a' and 'b' must be numbers" };
+		}
+		return { result: a + b };
+	})
 	.get("/error", () => {
 		throw new Error("Internal server error");
 	})
