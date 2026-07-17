@@ -14,6 +14,8 @@ const HOST = process.env.HOST || "0.0.0.0";
 const GREETING =
 	process.env.GREETING || "Hello Elysia";
 
+const START_TIME = Date.now();
+
 const migrationClient = postgres(process.env.DATABASE_URL!, { max: 1 });
 await migrate(drizzle(migrationClient), { migrationsFolder: "drizzle" });
 await migrationClient.end();
@@ -55,6 +57,11 @@ const app = new Elysia()
 	.get("/error", () => {
 		throw new Error("Internal server error");
 	})
+	.get("/health", () => ({
+		status: "ok",
+		uptime: Math.floor((Date.now() - START_TIME) / 1000),
+		timestamp: new Date().toISOString(),
+	}))
 	.get("/api", () => ({
 		PORT,
 		HOST,
