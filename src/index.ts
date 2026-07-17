@@ -57,7 +57,7 @@ const app = new Elysia()
 	.get("/error", () => {
 		throw new Error("Internal server error");
 	})
-	.get("/ping", () => ({ message: "ping pong mfs! lfg" }))
+	.get("/ping", () => ({ message: "ping pong fucking nerds! lfg" }))
 	.get("/health", () => ({
 		status: "ok",
 		uptime: Math.floor((Date.now() - START_TIME) / 1000),
