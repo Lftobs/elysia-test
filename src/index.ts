@@ -49,6 +49,9 @@ const app = new Elysia()
 		set.status = 201;
 		return { message: "Successfully joined the waitlist" };
 	})
+	.get("/waitlist", async () => {
+		return db.select().from(waitlist).orderBy(waitlist.createdAt);
+	})
 	.get("/error", () => {
 		throw new Error("Internal server error");
 	})
